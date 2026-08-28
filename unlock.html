@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Unlock Profile {{ profile.profile_code }}{% endblock %}
+{% block content %}
+
+<div class="card">
+    <h2 class="center">Unlock Profile {{ profile.profile_code }}</h2>
+    <p class="center">Scan the QR code below and pay <b>₹{{ price }}</b> via UPI.</p>
+
+    <div class="qr-box">
+        <img src="{{ url_for('static', filename='upi_qr.png') }}" alt="UPI QR code"
+             onerror="this.style.display='none'; this.parentElement.innerText='Admin: add static/upi_qr.png';">
+    </div>
+
+    <p class="center" style="font-size:13px;color:#666;">
+        After payment, send the screenshot on WhatsApp to <b>{{ phone }}</b>,
+        then fill the form below so we can match your request. Once we confirm
+        your payment, this profile will unlock for your number.
+    </p>
+
+    <form method="POST">
+        <label>Your Phone Number</label>
+        <input type="tel" name="user_phone" placeholder="10-digit mobile number" required>
+
+        <label>Your Name (optional)</label>
+        <input type="text" name="user_name" placeholder="Your name">
+
+        <div class="center" style="margin-top:20px;">
+            <button class="btn btn-gold" type="submit">I've Paid — Submit Request</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

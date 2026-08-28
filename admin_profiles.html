@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Manage Profiles{% endblock %}
+{% block content %}
+
+<h1 class="page-title">Manage Profiles</h1>
+<a class="btn btn-primary" href="{{ url_for('admin_add_profile') }}" style="margin-bottom:18px; display:inline-block;">+ Add New Profile</a>
+
+<table>
+    <tr><th>Code</th><th>Name</th><th>Age</th><th>City</th><th>Status</th><th>Actions</th></tr>
+    {% for p in profiles %}
+    <tr>
+        <td>{{ p.profile_code }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.age }}</td>
+        <td>{{ p.city }}</td>
+        <td>{{ "Active" if p.is_active else "Hidden" }}</td>
+        <td style="display:flex; gap:8px;">
+            <form method="POST" action="{{ url_for('admin_toggle_profile', profile_id=p.id) }}">
+                <button class="btn btn-outline" type="submit">{{ "Hide" if p.is_active else "Show" }}</button>
+            </form>
+            <form method="POST" action="{{ url_for('admin_delete_profile', profile_id=p.id) }}"
+                  onsubmit="return confirm('Delete this profile permanently?');">
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6">No profiles added yet.</td></tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

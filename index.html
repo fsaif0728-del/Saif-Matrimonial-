@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Find Your Life Partner — Saif Matrimonial Services{% endblock %}
+{% block content %}
+
+<h1 class="page-title">Find Your Life Partner</h1>
+<p class="page-sub">Browse verified profiles. Pay just ₹{{ price }} to unlock any one profile you like — no bulk membership fee.</p>
+
+<div class="grid">
+    {% for p in profiles %}
+    <div class="profile-card">
+        <div class="photo-wrap">
+            {% if p.photo_filename %}
+                <img src="{{ url_for('static', filename='uploads/' + p.photo_filename) }}" alt="profile photo">
+            {% else %}
+                <img src="https://via.placeholder.com/400x400.png?text=Photo" alt="no photo">
+            {% endif %}
+            <div class="verified-badge">✓ Verified</div>
+            <div class="lock-badge">
+                <div class="lock-icon">🔒</div>
+                <div>Unlock to view</div>
+            </div>
+        </div>
+        <div class="profile-body">
+            <div class="profile-id">Profile ID: {{ p.profile_code }}</div>
+            <div class="profile-meta">
+                🎂 {{ p.age }} Years &nbsp;|&nbsp; 📍 {{ p.city }}<br>
+                {% if p.marital_status %}💍 {{ p.marital_status }}<br>{% endif %}
+                {% if p.education %}🎓 {{ p.education }}<br>{% endif %}
+                {% if p.profession %}💼 {{ p.profession }}<br>{% endif %}
+            </div>
+            <a class="unlock-btn" href="{{ url_for('unlock', profile_code=p.profile_code) }}">🔒 Pay ₹{{ price }} to Unlock</a>
+        </div>
+    </div>
+    {% else %}
+    <p>No profiles available right now. Please check back soon.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

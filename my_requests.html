@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}My Requests{% endblock %}
+{% block content %}
+
+<h1 class="page-title">My Requests</h1>
+<p class="page-sub">Enter your phone number to check the status of profiles you've requested.</p>
+
+<form method="GET" style="max-width:400px;">
+    <label>Phone Number</label>
+    <input type="tel" name="phone" value="{{ phone }}" placeholder="10-digit mobile number" required>
+    <div style="margin-top:16px;">
+        <button class="btn btn-primary" type="submit">Check Status</button>
+    </div>
+</form>
+
+{% if phone %}
+<div style="margin-top:30px;">
+    {% if rows %}
+    <table>
+        <tr><th>Profile</th><th>Requested</th><th>Status</th><th></th></tr>
+        {% for r in rows %}
+        <tr>
+            <td>{{ r.profile_code }} — {{ r.name }}, {{ r.age }}, {{ r.city }}</td>
+            <td>{{ r.requested_at[:16].replace('T', ' ') }}</td>
+            <td>
+                {% if r.status == 'pending' %}
+                    <span class="badge-status badge-pending">Pending</span>
+                {% elif r.status == 'unlocked' %}
+                    <span class="badge-status badge-unlocked">Unlocked</span>
+                {% else %}
+                    <span class="badge-status badge-rejected">Rejected</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if r.status == 'unlocked' %}
+                <a class="btn btn-outline" href="{{ url_for('profile_full', profile_code=r.profile_code, phone=phone) }}">View Profile</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No requests found for this phone number.</p>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Saif Matrimonial Services{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="header">
+    <a href="{{ url_for('index') }}" class="brand">
+        <div class="brand-logo">💚</div>
+        <div class="brand-name">
+            <strong>Saif Matrimonial</strong>
+            <span>SERVICES</span>
+        </div>
+    </a>
+    <div class="nav-links">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('my_requests') }}">My Requests</a>
+        {% if session.get('is_admin') %}
+            <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+        {% endif %}
+    </div>
+    <div class="contact-pill">☎ {{ business_phone if business_phone else '' }}</div>
+</header>
+
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</div>
+
+<div class="footer">
+    © 2026 Saif Matrimonial Services · Trusted Connections, Blessed Beginnings
+</div>
+
+</body>
+</html>

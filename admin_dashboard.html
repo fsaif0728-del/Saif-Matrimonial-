@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+
+<h1 class="page-title">Admin Dashboard</h1>
+
+<div class="stat-grid">
+    <div class="stat-card"><div class="num">{{ total_profiles }}</div><div class="label">Total Profiles</div></div>
+    <div class="stat-card"><div class="num">{{ pending_count }}</div><div class="label">Pending Unlock Requests</div></div>
+    <div class="stat-card"><div class="num">{{ unlocked_count }}</div><div class="label">Total Unlocked</div></div>
+</div>
+
+<div style="display:flex; gap:14px; flex-wrap:wrap;">
+    <a class="btn btn-primary" href="{{ url_for('admin_add_profile') }}">+ Add New Profile</a>
+    <a class="btn btn-outline" href="{{ url_for('admin_profiles') }}">Manage Profiles</a>
+    <a class="btn btn-outline" href="{{ url_for('admin_requests') }}">Review Unlock Requests</a>
+    <a class="btn btn-outline" href="{{ url_for('admin_logout') }}">Logout</a>
+</div>
+
+{% endblock %}
