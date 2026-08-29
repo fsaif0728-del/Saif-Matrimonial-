@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ profile.name }} — {{ profile.profile_code }}{% endblock %}
+{% block content %}
+
+<section class="container-narrow">
+    <div class="card">
+        {% if profile.photo_original_name %}
+        <img class="full-photo" src="{{ url_for('profile_original_photo', profile_code=profile.profile_code) }}" alt="{{ profile.name }}">
+        {% endif %}
+
+        <h2 class="serif" style="color:var(--emerald-dark); margin:0 0 4px;">{{ profile.name }}</h2>
+        <p class="muted" style="font-size:13px; margin:0 0 14px;">{{ profile.profile_code }}</p>
+
+        <div class="profile-meta" style="font-size:15px; line-height:2;">
+            🎂 {{ profile.age }} Years &nbsp;|&nbsp; ⚧ {{ profile.gender }}<br>
+            📍 {{ profile.city }}<br>
+            {% if profile.marital_status %}💍 {{ profile.marital_status }}<br>{% endif %}
+            {% if profile.education %}🎓 {{ profile.education }}<br>{% endif %}
+            {% if profile.profession %}💼 {{ profile.profession }}<br>{% endif %}
+            {% if profile.community %}👥 {{ profile.community }}<br>{% endif %}
+        </div>
+
+        {% if profile.bio %}
+        <p style="margin-top:16px; font-size:14.5px; line-height:1.6;">{{ profile.bio }}</p>
+        {% endif %}
+
+        <div class="card" style="background:#fdfaf3; margin-top:20px; border-color:var(--gold-soft);">
+            <b>Interested? Contact us to proceed:</b>
+            <p style="margin:6px 0 0;">📞 {{ profile.contact_number or business_phone }}</p>
+        </div>
+
+        <div class="privacy-note">
+            Please respect the privacy of the person represented in this profile.
+            Do not share or redistribute their information without permission.
+        </div>
+    </div>
+</section>
+
+{% endblock %}

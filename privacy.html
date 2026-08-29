@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Privacy &amp; Terms — {{ business_name }}{% endblock %}
+{% block content %}
+
+<section class="container-narrow">
+    <h1 class="section-title">Privacy &amp; Terms</h1>
+    <div class="card" style="font-size:14.5px; line-height:1.8; color:var(--charcoal);">
+        <p>Profiles listed on {{ business_name }} are shared strictly for matrimonial purposes.
+        By browsing or unlocking a profile, you agree not to misuse, screenshot for
+        redistribution, or share any profile's photograph or contact information with
+        anyone outside of matrimonial consideration.</p>
+
+        <p>Photos are shown publicly only as protected, low-resolution previews. Original
+        photographs and contact numbers are only released to visitors whose payment has
+        been manually verified for that specific profile.</p>
+
+        <p>Payment screenshots you upload are stored privately and are only accessible to
+        our verification team — they are never made public.</p>
+
+        <p>If you believe a profile should be removed or a detail corrected, please contact
+        us at {{ business_phone }}.</p>
+    </div>
+</section>
+
+{% endblock %}
